@@ -15,6 +15,17 @@ services:
         ports:
             - "5432:5432"
 
+    api:
+        build:
+            context: .
+            dockerfile: ./docker/python/Dockerfile
+        container_name: fastapi
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+        environment:
+            DATABASE_URL: postgres://postgres:postgres@db:5432/postgres_vector_db
 
 volumes:
     postgres_data:
